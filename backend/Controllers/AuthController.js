@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require("../Models/User");
-//const FacultyModel = require("../Models/User");
+const FacultyModel = require("../Models/Faculty");
 
 const signup = async (req, res) => {
     try {
@@ -28,30 +28,30 @@ const signup = async (req, res) => {
     }
 }
 
-// const facultySignUp = async (req, res) => {
-//     try {
-//         const { name, email, password ,age} = req.body;
-//         const user = await FacultyModel.findOne({ email });
-//         if (user) {
-//             return res.status(409)
-//                 .json({ message: 'User is already exist, you can login', success: false });
-//         }
-//         const facultyModel = new FacultyModel({ name, email, password, age });
-//         facultyModel.password = await bcrypt.hash(password, 10);
-//         await facultyModel.save();
-//         res.status(201)
-//             .json({
-//                 message: "Signup successfully",
-//                 success: true
-//             })
-//     } catch (err) {
-//         res.status(500)
-//             .json({
-//                 message: "Internal server errror",
-//                 success: false
-//             })
-//     }
-// }
+const facultysignup = async (req, res) => {
+    try {
+        const { name, email, password ,age} = req.body;
+        const faculty = await FacultyModel.findOne({ email });
+        if (faculty) {
+            return res.status(409)
+                .json({ message: 'User is already exist, you can login', success: false });
+        }
+        const facultyModel = new FacultyModel({ name, email, password, age });
+        facultyModel.password = await bcrypt.hash(password, 10);
+        await facultyModel.save();
+        res.status(201)
+            .json({
+                message: "Signup successfully",
+                success: true
+            })
+    } catch (err) {
+        res.status(500)
+            .json({
+                message: "Internal server errror",
+                success: false
+            })
+    }
+}
 
 
 const login = async (req, res) => {
@@ -94,5 +94,5 @@ const login = async (req, res) => {
 module.exports = {
     signup,
     login,
-   // facultySignUp
+    facultysignup
 }

@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-//import FacultySignUp from './pages/FacultySignUp';
+import FacultySignUp from './pages/FacultySignUp';
 import Home from './pages/Home';
 import { useState } from 'react';
 import RefrshHandler from './RefrshHandler';
@@ -22,7 +22,7 @@ function App() {
         <Route path='/' element={<Navigate to="/login" />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        {/* <Route path='/facultysignup' element={<FacultySignUp />} /> */}
+        <Route path='/facultysignup' element={<FacultySignUp />} />
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
       </Routes>
     </div>
