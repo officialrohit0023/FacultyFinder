@@ -28,7 +28,7 @@ function Signup() {
         }
         try {
             const url = `http://localhost:8080/auth/signup`;
-            const response = await fetch(url, {
+            const response = await fetch(url,{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -45,12 +45,15 @@ function Signup() {
             } else if (error) {
                 const details = error?.details[0].message;
                 handleError(details);
+                console.log("this3");
             } else if (!success) {
                 handleError(message);
+                console.log("this2");
             }
             console.log(result);
         } catch (err) {
             handleError(err);
+            console.log("this1");
         }
     }
     return (
