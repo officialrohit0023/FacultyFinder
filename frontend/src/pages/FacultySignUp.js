@@ -9,32 +9,50 @@ function FacultySignUp() {
         name: '',
         email: '',
         password: '',
-        department:''
+        department:'',
+        facultyimage:null,
+        timetable:null
     })
 
     const navigate = useNavigate();
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value ,files } = e.target;
         console.log(name, value);
         const copyfacultySignupInfo = { ...facultysignupInfo };
-        copyfacultySignupInfo[name] = value;
+        if(files){
+            copyfacultySignupInfo[name]=files[0];
+        }
+        else{
+             copyfacultySignupInfo[name] = value;
+        }
         facultysetSignupInfo(copyfacultySignupInfo);
     }
 
     const handleFacultySignup = async (e) => {
         e.preventDefault();
-        const { name, email, password ,department} = facultysignupInfo;
-        if (!name || !email || !password || !department) {
+        const { name, email, password ,department, facultyimage, timetable} = facultysignupInfo;
+        if (!name || !email || !password || !department || !facultyimage || !timetable) {
             return handleError('name, email and password are required')
         }
+
+        const formData = new FormData();
+        formData.append("name", facultysignupInfo.name);
+        formData.append("email", facultysignupInfo.email);
+        formData.append("password", facultysignupInfo.password);
+        formData.append("department", facultysignupInfo.department);
+        formData.append("facultyimage", facultysignupInfo.facultyimage);
+        formData.append("timetable", facultysignupInfo.timetable);
+
+
         try {
             const url = `http://localhost:8080/auth/facultysignup`;
             const response = await fetch(url, {
                 method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(facultysignupInfo)
+                // headers: {
+                //     'Content-Type': 'application/json'
+                // },
+                // body: JSON.stringify(facultysignupInfo)
+                 body : formData
             });
             const result = await response.json();
             const { success, message, error } = result;
@@ -57,7 +75,7 @@ function FacultySignUp() {
     return (
         <div className='container'>
             <h1>Faculty Signup</h1>
-            <form onSubmit={handleFacultySignup}>
+            <form onSubmit={handleFacultySignup} encType="multipart/form-data">
                 <div>
                     <label htmlFor='name'>Name</label>
                     <input
@@ -97,6 +115,26 @@ function FacultySignUp() {
                         name='department'
                         placeholder='Enter your department...'
                         value={facultysignupInfo.department}
+                    />
+                </div>
+                <div>
+                    <label htmlFor='facultyimage'>Faculty Image</label>
+                    <input
+                        onChange={handleChange}
+                        type='file' accept='image/*'
+                        name='facultyimage'
+                       
+                        // value={facultysignupInfo.facultyimage}
+                    />
+                </div>
+                <div>
+                    <label htmlFor='timetable'>Upload Time-Table</label>
+                    <input
+                        onChange={handleChange}
+                        type='file' accept='image/*'
+                        name='timetable'
+                        // placeholder=''
+                        // value={facultysignupInfo.timetable}
                     />
                 </div>
                 <button type='submit'>Signup</button>

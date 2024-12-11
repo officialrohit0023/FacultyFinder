@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
 const UserModel = require("../Models/User");
 const FacultyModel = require("../Models/Faculty");
 
@@ -28,15 +30,50 @@ const signup = async (req, res) => {
     }
 }
 
+//const multer  = require('multer')
+//const upload = multer({ dest: 'uploads/' })
+
+// const upload = multer({
+//     storage,
+//     fileFilter: (req, file, cb) => {
+//         const allowedTypes = /jpeg|jpg|png/;
+//         const isValidType = allowedTypes.test(path.extname(file.originalname).toLowerCase()) &&
+//                             allowedTypes.test(file.mimetype);
+
+//         if (isValidType) {
+//             cb(null, true);
+//         } else {
+//             cb(new Error('Only .jpeg, .jpg, and .png formats are allowed!'));
+//         }
+//     },
+// });
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() ;
+      cb(null,  uniqueSuffix + file.originalname);
+    }
+  })
+  
+  const upload = multer({ storage: storage })
+
 const facultysignup = async (req, res) => {
     try {
-        const { name, email, password , department} = req.body;
+        const { name, email, password , department,facultyimage,timetable} = req.body;
         const faculty = await FacultyModel.findOne({ email });
         if (faculty) {
             return res.status(409)
                 .json({ message: 'User is already exist, you can login', success: false });
         }
-        const facultyModel = new FacultyModel({ name, email, password, department });
+
+         // Get file paths
+         const facultyimagePath = req.files?.facultyimage ? `/uploads/${req.files.facultyimage[0].filename}` : null;
+         const timetablePath = req.files?.timetable ? `/uploads/${req.files.timetable[0].filename}` : null;
+
+        const facultyModel = new FacultyModel({ name, email, password, department,facultyimage : facultyimagePath,timetable : timetablePath });
         facultyModel.password = await bcrypt.hash(password, 10);
         await facultyModel.save();
         res.status(201)
@@ -94,5 +131,6 @@ const login = async (req, res) => {
 module.exports = {
     signup,
     login,
+    upload,
     facultysignup
 }

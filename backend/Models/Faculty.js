@@ -19,6 +19,12 @@ const FacultySchema = new Schema({
             type : String,
             required : true
     
+        },
+        facultyimage:{
+            type : String,
+        },
+        timetable:{
+            type : String,
         }
     });
     
