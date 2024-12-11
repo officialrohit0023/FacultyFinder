@@ -6,20 +6,21 @@ import FacultySignUp from './pages/FacultySignUp';
 import Home from './pages/Home';
 import { useState } from 'react';
 import RefrshHandler from './RefrshHandler';
+import Start from './pages/Start';
 
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const PrivateRoute = ({ element }) => {
-    return isAuthenticated ? element : <Navigate to="/login" />
+    return isAuthenticated ? element : <Navigate to="/" />
   }
 
   return (
     <div className="App">
       <RefrshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
-        <Route path='/' element={<Navigate to="/login" />} />
+        <Route path='/' element={<Start />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/facultysignup' element={<FacultySignUp />} />

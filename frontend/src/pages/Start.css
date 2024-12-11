@@ -1,0 +1,12 @@
+.startButton{
+    background-color: purple;
+  border: none;
+  font-size: 50px;
+  color: white;
+  border-radius: 5px;
+  padding: 30px;
+  cursor: pointer;
+  margin: 50px 0; 
+  margin-right: 50px;
+  box-shadow: 15px 5px 5px grey;
+}

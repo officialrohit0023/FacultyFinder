@@ -9,7 +9,7 @@ function FacultySignUp() {
         name: '',
         email: '',
         password: '',
-        age:''
+        department:''
     })
 
     const navigate = useNavigate();
@@ -23,8 +23,8 @@ function FacultySignUp() {
 
     const handleFacultySignup = async (e) => {
         e.preventDefault();
-        const { name, email, password ,age} = facultysignupInfo;
-        if (!name || !email || !password || !age) {
+        const { name, email, password ,department} = facultysignupInfo;
+        if (!name || !email || !password || !department) {
             return handleError('name, email and password are required')
         }
         try {
@@ -90,13 +90,13 @@ function FacultySignUp() {
                     />
                 </div>
                 <div>
-                    <label htmlFor='password'>Age</label>
+                    <label htmlFor='department'>Department</label>
                     <input
                         onChange={handleChange}
-                        type='number'
-                        name='age'
-                        placeholder='Enter your age...'
-                        value={facultysignupInfo.age}
+                        type='text'
+                        name='department'
+                        placeholder='Enter your department...'
+                        value={facultysignupInfo.department}
                     />
                 </div>
                 <button type='submit'>Signup</button>

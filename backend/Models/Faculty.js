@@ -15,8 +15,8 @@ const FacultySchema = new Schema({
             type: String,
             required: true,
         },
-        age:{
-            type : Number,
+        department:{
+            type : String,
             required : true
     
         }

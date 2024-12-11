@@ -30,13 +30,13 @@ const signup = async (req, res) => {
 
 const facultysignup = async (req, res) => {
     try {
-        const { name, email, password ,age} = req.body;
+        const { name, email, password , department} = req.body;
         const faculty = await FacultyModel.findOne({ email });
         if (faculty) {
             return res.status(409)
                 .json({ message: 'User is already exist, you can login', success: false });
         }
-        const facultyModel = new FacultyModel({ name, email, password, age });
+        const facultyModel = new FacultyModel({ name, email, password, department });
         facultyModel.password = await bcrypt.hash(password, 10);
         await facultyModel.save();
         res.status(201)
