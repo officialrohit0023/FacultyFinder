@@ -69,9 +69,13 @@ const facultysignup = async (req, res) => {
                 .json({ message: 'User is already exist, you can login', success: false });
         }
 
+        //  // Get file paths
+        //  const facultyimagePath = req.files?.facultyimage ? `/uploads/${req.files.facultyimage[0].filename}` : null;
+        //  const timetablePath = req.files?.timetable ? `/uploads/${req.files.timetable[0].filename}` : null;
+
          // Get file paths
-         const facultyimagePath = req.files?.facultyimage ? `/uploads/${req.files.facultyimage[0].filename}` : null;
-         const timetablePath = req.files?.timetable ? `/uploads/${req.files.timetable[0].filename}` : null;
+        const facultyimagePath = req.files?.facultyimage ? `/uploads/${req.files.facultyimage[0].filename}` : null;
+        const timetablePath = req.files?.timetable ? `/uploads/${req.files.timetable[0].filename}` : null;
 
         const facultyModel = new FacultyModel({ name, email, password, department,facultyimage : facultyimagePath,timetable : timetablePath });
         facultyModel.password = await bcrypt.hash(password, 10);
