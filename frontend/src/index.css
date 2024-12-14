@@ -11,13 +11,13 @@ label{
   font-size: 20px;
 }
 
-html,
+/* html,
 body{
   height: 100%;
   width: 100%;
-}
+} */
 
-body{
+ body{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,6 +30,7 @@ body{
   width: 100%;
   max-width: 400px;
   box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  margin-top: 150px;
 }
 
 .container > h1{
@@ -61,7 +62,7 @@ body{
 }
 
 button{
-  background-color: purple;
+  background-color: #1976d2;
   border: none;
   font-size: 20px;
   color: white;

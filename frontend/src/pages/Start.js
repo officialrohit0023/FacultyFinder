@@ -2,6 +2,8 @@ import React from 'react'
 import './Start.css';
 import { useNavigate } from 'react-router-dom'
 import { FacultyCard } from '../FacultySearchGrid/FacultyCard';
+import Navbar from '../Navbar';
+import FacultyProfile from '../FacultySearchGrid/FacultyProfile';
 function Start() {
   const navigate = useNavigate();
   function studentRedirect(){
@@ -13,15 +15,16 @@ function Start() {
 
 
   return (
-    <div>
+    <div className='nav'>
+        <div ><Navbar /></div>
         <button onClick={studentRedirect} className='startButton'>
             
             Student
         </button>
-        <FacultyCard />
         <button onClick={facultyRedirect} className='startButton'>
             Faculty
         </button>
+        
     </div>
 
   )

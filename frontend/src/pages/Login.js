@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
+import './up.css'
 import { handleError, handleSuccess } from '../utils';
 
 function Login() {
@@ -42,7 +43,7 @@ function Login() {
                 localStorage.setItem('token', jwtToken);
                 localStorage.setItem('loggedInUser', name);
                 setTimeout(() => {
-                    navigate('/home')
+                    navigate('/getFaculties')
                 }, 1000)
             } else if (error) {
                 const details = error?.details[0].message;

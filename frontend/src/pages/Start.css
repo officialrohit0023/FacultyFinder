@@ -1,5 +1,5 @@
 .startButton{
-    background-color: purple;
+    background-color: #1976d2;
   border: none;
   font-size: 50px;
   color: white;
@@ -9,4 +9,7 @@
   margin: 50px 0; 
   margin-right: 50px;
   box-shadow: 15px 5px 5px grey;
+}
+.nav{
+  width: 100%;
 }

@@ -1,7 +1,14 @@
 import React from 'react'
 import './FacultyCard.css'
+import {  useNavigate } from 'react-router-dom'
+import FacultyProfile from './FacultyProfile';
 
 export const FacultyCard = ({faculty}) => {
+  const navigate = useNavigate();
+  // Function to navigate to the faculty profile page and pass data
+  const goToProfile = () => {
+    navigate('/profile', { state: { faculty } }); // Passing faculty data to the new route
+  };
   return (
     <div className='upc'>
         
@@ -15,7 +22,7 @@ export const FacultyCard = ({faculty}) => {
               <div className='profile-description'>
                {faculty.department}
               </div>
-              <div className='profile-button'><a href='#'>Find</a></div>
+              <div className='profile-button'><button onClick={goToProfile}>Find</button></div>
                 </center>
               
             </div>

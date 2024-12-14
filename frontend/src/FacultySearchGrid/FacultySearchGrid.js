@@ -3,20 +3,46 @@ import axios from 'axios'
 import './FacultySearchGrid.css'
 import { useEffect, useState} from 'react'
 import { FacultyCard } from './FacultyCard'
+import Navbar from '../Navbar'
+import Home from '../pages/Home'
+import { useNavigate } from 'react-router-dom';
+import { handleError, handleSuccess } from '../utils';
+import { ToastContainer } from 'react-toastify';
 
 export const FacultySearchGrid = () => {
+     const [loggedInUser, setLoggedInUser] = useState('');
     const [faculties,setFaculties]=useState([])
+    const navigate = useNavigate();
+        useEffect(() => {
+            setLoggedInUser(localStorage.getItem('loggedInUser'))
+        }, [])
+    
+        const handleLogout = (e) => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('loggedInUser');
+            handleSuccess('User Loggedout');
+            setTimeout(() => {
+                navigate('/login');
+            }, 1000)
+        }
     useEffect(()=>{
         axios.get('http://localhost:8080/getFaculties')
         .then(faculties => setFaculties(faculties.data.data))
         .catch(err => console.log(err))
     },[])
+
   return (
-    <div className='grid'>
+    <div>
         <p>{console.log(faculties)}</p>
-        {faculties.map((faculty)=>(
+        <div> <Navbar /></div>
+        
+        <div  className='grid'>
+            {faculties.map((faculty)=>(
             <FacultyCard key={faculty._id} faculty={faculty} />
         ))}
+        <button onClick={handleLogout}>Logout</button>
         </div>
+         <ToastContainer />
+    </div>
   )
 }

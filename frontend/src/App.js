@@ -8,6 +8,7 @@ import { useState } from 'react';
 import RefrshHandler from './RefrshHandler';
 import Start from './pages/Start';
 import { FacultySearchGrid } from './FacultySearchGrid/FacultySearchGrid';
+import FacultyProfile from './FacultySearchGrid/FacultyProfile';
 
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/facultysignup' element={<FacultySignUp />} />
-        <Route path='/getFaculties' element={<FacultySearchGrid />} />
+        <Route path='/getFaculties' element={<PrivateRoute element={<FacultySearchGrid />}/>} />
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
+        <Route path='/profile' element={<FacultyProfile />} />
       </Routes>
     </div>
   );
